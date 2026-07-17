@@ -1,0 +1,114 @@
+public class Lab2 {
+    public static void main(String[] args) {
+        int[][] matrix = {
+                {0, 1, 1, 0, 0, 1, 0},
+                {1, 0, 0, 0, 1, 0, 1},
+                {0, 1, 0, 1, 0, 0, 0},
+                {1, 0, 0, 0, 0, 1, 1},
+                {0, 1, 1, 0, 1, 0, 0},
+                {1, 0, 0, 0, 1, 0, 1},
+                {0, 1, 0, 1, 0, 1, 0}
+        };
+
+        DeepSeek(matrix);
+
+    }
+
+    static int FirstDiogonal(int[][] matrix){
+        int counter = 0; int counter1 = 0; int maxcounter = 0, maxcounter1 = 0;
+        for(int i = 0; i < matrix.length - 1;i++) {
+
+            counter = 0; counter1 = 0;
+
+
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i + j < matrix[0].length) {
+                    if (matrix[i + j][j] == 0) counter++;
+                } else break;
+            }
+
+
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i - j > 0) {
+                    if (matrix[i - j][j] == 0) counter1++;
+                }
+            }
+
+            maxcounter1 = Math.max(maxcounter1, counter1);
+            maxcounter = Math.max(maxcounter, counter);
+            if(maxcounter == Math.max(matrix.length,  matrix[0].length) && maxcounter1 == Math.max(matrix.length,  matrix[0].length)) return Math.max(matrix.length,  matrix[0].length);
+        }
+
+        return Math.max(maxcounter, maxcounter1);
+    }
+
+    static int ThirdDiogonal(int[][] matrix){
+        int counter = 0;  int maxcounter = 0;
+        for(int i = 0; i < matrix.length - 1;i++) {
+
+            counter = 0;
+
+
+            for (int j = 1; j < matrix[0].length; j++) {
+                if (i + j < matrix[0].length) {
+                    if (matrix[i + j][ matrix[0].length - 1 - j] == 0) counter++;
+
+                } else break;
+            }
+
+            maxcounter = Math.max(maxcounter, counter);
+
+        }
+
+        return maxcounter;
+    }
+
+    static int SecondDiogonal(int[][] matrix) {
+        int counter = 0;
+        int maxcounter = 0;
+        for (int j = 1; j < matrix[0].length - 1; j++) {
+
+            counter = 0;
+
+
+            for (int i = 0; i < matrix.length; i++) {
+                if (i + j < matrix.length) {
+                    if (matrix[i][i + j] == 0) counter++;
+
+                } else break;
+            }
+
+
+            maxcounter = Math.max(maxcounter, counter);
+
+
+        }
+
+        return maxcounter;
+    }
+    static void DeepSeek(int[][] matrix){
+        int counter = 0; int counter1 = 0; int maxcounter = 0, maxcounter1 = 0;
+        for(int j = 0; j < matrix[0].length; j++){
+            counter = 0;
+            for (int i = 0; i < matrix[0].length;i++){
+                if(matrix[i][j] == 0) counter++;
+            }
+            maxcounter = Math.max(counter, maxcounter);
+        }
+
+        for (int[] i:matrix){
+            counter1 = 0;
+            for (int j:i){
+                if(j == 0) counter1++;
+            }
+            maxcounter1 = Math.max(counter1, maxcounter1);
+        }
+
+        int s1 = Math.max(maxcounter, maxcounter1);
+        s1 = Math.max(s1, FirstDiogonal(matrix));
+        s1 = Math.max(s1, SecondDiogonal(matrix));
+        s1 = Math.max(s1, ThirdDiogonal(matrix));
+        System.out.println(s1);
+    }
+
+}
