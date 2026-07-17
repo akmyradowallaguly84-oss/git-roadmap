@@ -1,0 +1,72 @@
+public class Lab2 {
+    public static void main(String[] args) {
+        int[][] matrix = {
+                {1, 9, 3, 8, 2, 7},
+                {2, 8, 4, 7, 3, 6},
+                {3, 7, 5, 6, 4, 5},
+                {4, 6, 6, 5, 5, 4},
+                {5, 5, 7, 4, 6, 3},
+                {6, 4, 8, 3, 7, 2},
+                {7, 3, 9, 2, 8, 1}
+        };
+
+
+        DeepSeek(matrix);
+    }
+
+
+
+    static void DeepSeek(int[][] matrix){
+        int counter; int mcounter; int maincounter = 0;
+
+        for(int j = 0; j < matrix[0].length; j++){
+            mcounter = 0;
+            if(matrix[0][j] > matrix[1][j]) {
+                for (int i = 0; i < matrix.length - 1; i++) {
+                    counter = 0;
+                    for (int l = i + 1; l < matrix.length; l++) {
+                        if (matrix[i][j] > matrix[l][j]) counter++;
+                    }
+
+                    if (counter == matrix.length - 1 - i) {
+                        mcounter++;
+                    }
+                }
+
+                if (mcounter +1 == matrix.length) {
+                    System.out.println(matrix[0][j]);
+                    maincounter++;
+                }
+
+            }
+
+            else if(matrix[0][j] < matrix[1][j]) {
+                for (int i = 0; i < matrix.length - 1; i++) {
+                    counter = 0;
+                    for (int l = i + 1; l < matrix.length; l++) {
+                        if (matrix[i][j] < matrix[l][j]) counter++;
+                    }
+
+                    if (counter == matrix.length - 1 - i) {
+                        mcounter++;
+                    }
+                }
+
+                if (mcounter +1 == matrix.length) {
+                    System.out.println(matrix[matrix.length-1][j]);
+                    maincounter++;
+                }
+
+            }
+
+
+
+
+
+        }
+
+        if(maincounter == 0) System.out.println("Nothing!!!");
+
+    }
+
+}
